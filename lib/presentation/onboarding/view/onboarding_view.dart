@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_test/domain/models.dart';
+import 'package:flutter_application_test/domain/models/models.dart';
 import 'package:flutter_application_test/presentation/onboarding/viewmodel/onboarding_viewmodel.dart';
 import 'package:flutter_application_test/presentation/resources/assets_manager.dart';
 import 'package:flutter_application_test/presentation/resources/color_manager.dart';
