@@ -5,11 +5,12 @@ import '/data/response/responses.dart';
 
 abstract class RemoteDataSource{
 Future<AuthenticationResponse>  login(LoginRequest loginRequest);
+
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource{
 
-AppServiceClient _appServiceClient;
+final AppServiceClient _appServiceClient;
 RemoteDataSourceImpl(this._appServiceClient);
 
   @override
