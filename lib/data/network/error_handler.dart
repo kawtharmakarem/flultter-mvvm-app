@@ -1,4 +1,43 @@
-import 'package:flutter_application_test/data/network/failure.dart';
+import 'package:dio/dio.dart';
+
+import '/data/network/failure.dart';
+
+class ErrorHandler implements Exception{
+  late Failure failure;
+  ErrorHandler.handle(dynamic error){
+    if(error is DioException){
+      failure=_handleError(error);
+    }else{
+      failure=DataSource.DEFAULT.getFailure();
+    }
+  }
+}
+
+Failure _handleError(DioException error){
+switch(error.type){
+  
+  case DioExceptionType.connectionTimeout:
+    return DataSource.CONNECT_TIMEOUT.getFailure();
+  case DioExceptionType.sendTimeout:
+    return DataSource.SEND_TIMEOUT.getFailure();
+  case DioExceptionType.receiveTimeout:
+    return DataSource.RECIEVE_TIMEOUT.getFailure();
+  case DioExceptionType.badCertificate:
+    return DataSource.BAD_REQUEST.getFailure();
+  case DioExceptionType.badResponse:
+    if(error.response!=null && error.response?.statusCode!=null && error.response?.statusMessage!=null){
+          return Failure(error.response?.statusCode ?? 0, error.response?.statusMessage ?? "");
+    }else{
+      return DataSource.DEFAULT.getFailure();
+    }
+  case DioExceptionType.cancel:
+    return DataSource.CANCEL.getFailure();
+  case DioExceptionType.connectionError:
+    return DataSource.NO_INTERNET_CONNECTION.getFailure();
+  case DioExceptionType.unknown:
+    return DataSource.DEFAULT.getFailure();
+}
+}
 
 enum DataSource {
   SUCCESS,
@@ -14,6 +53,7 @@ enum DataSource {
   SEND_TIMEOUT,
   CACHE_ERROR,
   NO_INTERNET_CONNECTION,
+  DEFAULT,
 }
 
 extension DataSourceExtension on DataSource{
@@ -46,8 +86,16 @@ extension DataSourceExtension on DataSource{
         return Failure(ResponseCode.CACHE_ERROR, ResponseMessage.CACHE_ERROR);
       case DataSource.NO_INTERNET_CONNECTION:
         return Failure(ResponseCode.NO_INTERNET_CONNECTION, ResponseMessage.NO_INTERNET_CONNECTION);
+      case DataSource.DEFAULT:
+      return Failure(ResponseCode.DEFAULT, ResponseMessage.DEFAULT);
     }
   }
+}
+
+class ApiInternalStatus{
+  static const int SUCCESS=0;
+  static const int FAILURE=1;
+
 }
 
 class ResponseCode {
@@ -66,7 +114,7 @@ class ResponseCode {
   static const int SEND_TIMEOUT = -4;
   static const int CACHE_ERROR = -5;
   static const int NO_INTERNET_CONNECTION = -6;
-  static const int UNKNOWN = -7;
+  static const int DEFAULT = -7;
 }
 
 class ResponseMessage {
@@ -92,5 +140,5 @@ class ResponseMessage {
   static const String CACHE_ERROR = "Cache error, Try again later";
   static const String NO_INTERNET_CONNECTION =
       "Please check your internet connection";
-  static const String UNKNOWN = "Some thing went wrong, Try again later";
+  static const String DEFAULT = "Some thing went wrong, Try again later";
 }
