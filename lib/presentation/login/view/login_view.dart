@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_test/app/di.dart';
 import 'package:flutter_application_test/presentation/login/viewmodel/login_viewmodel.dart';
 import 'package:flutter_application_test/presentation/resources/assets_manager.dart';
 import 'package:flutter_application_test/presentation/resources/color_manager.dart';
+import 'package:flutter_application_test/presentation/resources/routes_manager.dart';
 import 'package:flutter_application_test/presentation/resources/strings_manager.dart';
 import 'package:flutter_application_test/presentation/resources/values_manager.dart';
 
@@ -13,9 +15,10 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  LoginViewModel _viewModel = LoginViewModel(_loginUseCase);
-  TextEditingController _userNameController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final LoginViewModel _viewModel = instance<LoginViewModel>();
+
+ final  TextEditingController _userNameController = TextEditingController();
+ final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   _bind() {
@@ -34,11 +37,12 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return _getContentWidget();
   }
 
   Widget _getContentWidget() {
     return Scaffold(
+      backgroundColor: ColorManager.white,
       body: Container(
         padding: const EdgeInsets.only(top: AppPadding.p100),
         color: ColorManager.white,
@@ -98,14 +102,40 @@ class _LoginViewState extends State<LoginView> {
                   const SizedBox(
                     height: AppSize.s28,
                   ),
-                  Padding(padding: const EdgeInsets.only(left: AppPadding.p28,right: AppPadding.p28),
-                  child: StreamBuilder<bool>(
-                    stream:_viewModel.outIsPasswordValid ,
-                    builder:(context,snapshot){
-                      return ElevatedButton(onPressed: (){
-                        _viewModel.login();
-                      }, child:const Text(AppStrings.login));
-                    } ),)
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: AppPadding.p28, right: AppPadding.p28),
+                    child: StreamBuilder<bool>(
+                        stream: _viewModel.outAreAllInputsValid,
+                        builder: (context, snapshot) {
+                          return SizedBox(
+                            width: double.infinity,
+                            height: AppSize.s40,
+                            child: ElevatedButton(
+                                onPressed: (snapshot.data ?? false)
+                                    ? () {
+                                        _viewModel.login();
+                                      }
+                                    : null,
+                                child: const Text(AppStrings.login)),
+                          );
+                        }),
+                  ),
+                   Padding(
+                    padding:const EdgeInsets.only(
+                        left: AppPadding.p28, right: AppPadding.p28,top: AppPadding.p8),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextButton(onPressed: (){
+                          Navigator.pushReplacementNamed(context, Routes.forgotPasswordRoute);
+                        }, child:Text(AppStrings.forgetPassword,style: Theme.of(context).textTheme.titleMedium)),
+                        TextButton(onPressed: (){
+                          Navigator.pushReplacementNamed(context, Routes.registerRoute);
+                        }, child: Text(AppStrings.registerText,style: Theme.of(context).textTheme.titleMedium,))
+                      ],
+                    ),
+                  )
                 ],
               )),
         ),

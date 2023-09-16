@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_application_test/app/app_prefs.dart';
 import 'package:flutter_application_test/app/constants.dart';
-import 'package:flutter_application_test/presentation/resources/constants_manager.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 const String APPLICATION_JSON="application/json";
