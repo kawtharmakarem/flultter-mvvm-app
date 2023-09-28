@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_application_test/domain/usecase/login_usecase.dart';
 import 'package:flutter_application_test/presentation/base/baseviewmodel.dart';
 import 'package:flutter_application_test/presentation/common/freezed_data_classes.dart';
+import 'package:flutter_application_test/presentation/common/state_renderer/state_renderer_impl.dart';
 
 class LoginViewModel extends BaseViewModel implements LoginViewModelInputs,LoginViewModelOutputs{
   
@@ -16,13 +17,16 @@ class LoginViewModel extends BaseViewModel implements LoginViewModelInputs,Login
 
   @override
   void dispose() {
+    super.dispose();
     _userNameStreamController.close();
     _passwordStreamController.close();
     _areAllInputsValidStreamController.close();
   }
 
   @override
-  void start() {}
+  void start() {
+    inputState.add(ContentState());
+  }
   
 @override
   setPassword(String password) {
