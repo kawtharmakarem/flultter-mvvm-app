@@ -25,3 +25,9 @@ extension AuthenticationResponseMapper on AuthenticationResponse?{
      this?.contacts.toDomain());
   }
 }
+//forgot password
+extension ForgotPasswordResponseMapper on ForgotPasswordResponse?{
+  String toDomain(){
+    return this?.support?.orEmpty() ?? Constants.empty;
+  }
+}

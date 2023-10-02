@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_application_test/app/app_prefs.dart';
 import 'package:flutter_application_test/app/di.dart';
+import 'package:flutter_application_test/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:flutter_application_test/presentation/login/viewmodel/login_viewmodel.dart';
 import 'package:flutter_application_test/presentation/resources/assets_manager.dart';
 import 'package:flutter_application_test/presentation/resources/color_manager.dart';
@@ -20,6 +23,7 @@ class _LoginViewState extends State<LoginView> {
  final  TextEditingController _userNameController = TextEditingController();
  final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+ final AppPreferences _appPreferences=instance<AppPreferences>();
 
   _bind() {
     _viewModel.start();
@@ -27,6 +31,16 @@ class _LoginViewState extends State<LoginView> {
         .addListener(() => _viewModel.setUserName(_userNameController.text));
     _passwordController
         .addListener(() => _viewModel.setPassword(_passwordController.text));
+        _viewModel.isUserLoggedInSuccessfullyStreamController.stream.listen((isLoggedIn) { 
+          if(isLoggedIn)
+          {
+            SchedulerBinding.instance.addPostFrameCallback((_) { 
+              _appPreferences.setUserLoggedIn();
+            Navigator.of(context).pushReplacementNamed(Routes.mainRoute);
+
+            });
+          }
+        });
   }
 
   @override
@@ -37,13 +51,20 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    return _getContentWidget();
+    return Scaffold(
+      backgroundColor: ColorManager.white,
+      body: StreamBuilder<FlowState>(
+        stream: _viewModel.outputState,
+         builder: (context,snapshot){
+          return snapshot.data?.getScreenWidget(context,_getContentWidget(),(){
+            _viewModel.login();
+          }) ?? _getContentWidget();
+         }),
+    );
   }
 
   Widget _getContentWidget() {
-    return Scaffold(
-      backgroundColor: ColorManager.white,
-      body: Container(
+    return  Container(
         padding: const EdgeInsets.only(top: AppPadding.p100),
         color: ColorManager.white,
         child: SingleChildScrollView(
@@ -139,8 +160,8 @@ class _LoginViewState extends State<LoginView> {
                 ],
               )),
         ),
-      ),
-    );
+      );
+  
   }
 
   @override

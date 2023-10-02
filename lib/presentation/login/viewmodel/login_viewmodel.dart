@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_application_test/domain/usecase/login_usecase.dart';
 import 'package:flutter_application_test/presentation/base/baseviewmodel.dart';
 import 'package:flutter_application_test/presentation/common/freezed_data_classes.dart';
+import 'package:flutter_application_test/presentation/common/state_renderer/state_renderer.dart';
 import 'package:flutter_application_test/presentation/common/state_renderer/state_renderer_impl.dart';
 
 class LoginViewModel extends BaseViewModel implements LoginViewModelInputs,LoginViewModelOutputs{
@@ -10,6 +11,9 @@ class LoginViewModel extends BaseViewModel implements LoginViewModelInputs,Login
   final StreamController _userNameStreamController=StreamController<String>.broadcast();
   final StreamController _passwordStreamController=StreamController<String>.broadcast();
   final StreamController _areAllInputsValidStreamController=StreamController<void>.broadcast();
+  final StreamController isUserLoggedInSuccessfullyStreamController=StreamController<bool>();
+
+
   var loginObject=LoginObject("", "");
  final LoginUseCase _loginUseCase;
   LoginViewModel(this._loginUseCase);
@@ -21,6 +25,7 @@ class LoginViewModel extends BaseViewModel implements LoginViewModelInputs,Login
     _userNameStreamController.close();
     _passwordStreamController.close();
     _areAllInputsValidStreamController.close();
+    isUserLoggedInSuccessfullyStreamController.close();
   }
 
   @override
@@ -43,12 +48,14 @@ class LoginViewModel extends BaseViewModel implements LoginViewModelInputs,Login
   }
   @override
   login() async{
+    inputState.add(LoadingState(stateRendererType: StateRendererType.popupLoadingtate));
    (await _loginUseCase.execute(LoginInputUseCaseInput(loginObject.userName, loginObject.password)))
    .fold((failure) => {
-    print(failure.message)
+    inputState.add(ErrorState(stateRendererType: StateRendererType.popupErrorState, message: failure.message))
    },
     (data) => {
-    print(data.customer?.name)
+    inputState.add(ContentState()),
+    isUserLoggedInSuccessfullyStreamController.add(true)
    });
   }
 

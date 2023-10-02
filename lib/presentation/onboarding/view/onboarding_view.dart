@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_application_test/app/app_prefs.dart';
+import 'package:flutter_application_test/app/di.dart';
 import 'package:flutter_application_test/domain/models/models.dart';
 import 'package:flutter_application_test/presentation/onboarding/viewmodel/onboarding_viewmodel.dart';
 import 'package:flutter_application_test/presentation/resources/assets_manager.dart';
@@ -21,8 +23,10 @@ class OnBoardingView extends StatefulWidget {
 class _OnBoardingViewState extends State<OnBoardingView> {
   final PageController _pageController = PageController();
   final OnBoardingViewModel _viewModel = OnBoardingViewModel();
+  final AppPreferences _appPreferences=instance<AppPreferences>();
 
   _bind() {
+    _appPreferences.setOnBoardingScreenViewed();
     _viewModel.start();
   }
 
