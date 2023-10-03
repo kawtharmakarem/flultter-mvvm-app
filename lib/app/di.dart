@@ -6,7 +6,9 @@ import 'package:flutter_application_test/data/network/dio_factory.dart';
 import 'package:flutter_application_test/data/network/network_info.dart';
 import 'package:flutter_application_test/data/repository/repository_impl.dart';
 import 'package:flutter_application_test/domain/repository/repository.dart';
+import 'package:flutter_application_test/domain/usecase/forgotpassword_usecase.dart';
 import 'package:flutter_application_test/domain/usecase/login_usecase.dart';
+import 'package:flutter_application_test/presentation/forgot_password/forgot_password_viewmodel.dart';
 import 'package:flutter_application_test/presentation/login/viewmodel/login_viewmodel.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -44,4 +46,10 @@ initLoginModule() {
     instance.registerFactory<LoginViewModel>(() => LoginViewModel(instance()));
   }
   
+}
+initForgotPasswordModule(){
+  if(!GetIt.I.isRegistered<ForgotPasswordUseCase>()){
+    instance.registerFactory<ForgotPasswordUseCase>(() => ForgotPasswordUseCase(instance()));
+    instance.registerFactory<ForgotPasswordViewModel>(() => ForgotPasswordViewModel(instance()));
+  }
 }

@@ -50,6 +50,17 @@ class ContentState extends FlowState{
   StateRendererType getStateRendererType()=>StateRendererType.contentState;
 
 }
+//success state
+class SuccessState extends FlowState{
+  String message;
+  SuccessState(this.message);
+  
+  @override
+  String getMessage() =>message;
+  
+  @override
+  StateRendererType getStateRendererType()=>StateRendererType.popupSuccess;
+}
 
 //Empty state
 class EmptyState extends FlowState {
@@ -109,6 +120,7 @@ extension FlowStateExtension on FlowState{
           message: getMessage(),
            retryActionfunction: (){});
       }
+      
       default:
       {
         dismissDialog(context);

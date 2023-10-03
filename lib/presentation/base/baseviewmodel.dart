@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter_application_test/presentation/common/state_renderer/state_renderer_impl.dart';
 
-abstract class BaseViewModel extends BaseViewModelInputs
-    implements BaseViewModelOutputs {
+abstract class BaseViewModel implements BaseViewModelInputs
+     ,BaseViewModelOutputs {
   // shared variables and function that will be used through any view model.
  final StreamController _inputStreamController=StreamController<FlowState>.broadcast();
 

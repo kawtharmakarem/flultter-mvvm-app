@@ -149,7 +149,7 @@ class _LoginViewState extends State<LoginView> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         TextButton(onPressed: (){
-                          Navigator.pushReplacementNamed(context, Routes.forgotPasswordRoute);
+                          Navigator.pushNamed(context, Routes.forgotPasswordRoute);
                         }, child:Text(AppStrings.forgetPassword,style: Theme.of(context).textTheme.titleMedium)),
                         TextButton(onPressed: (){
                           Navigator.pushReplacementNamed(context, Routes.registerRoute);

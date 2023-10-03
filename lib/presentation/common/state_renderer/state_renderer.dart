@@ -13,6 +13,7 @@ enum StateRendererType {
   //dialog state
   popupLoadingtate,
   popupErrorState,
+  popupSuccess,
   //full screen state
   fullScreenLoadingState,
   fullScreenErrorState,
@@ -21,13 +22,14 @@ enum StateRendererType {
   contentState
 }
 
+// ignore: must_be_immutable
 class StateRenderer extends StatelessWidget {
   StateRendererType stateRendererType;
   String message;
   String title;
   Function retryActionfunction;
   StateRenderer(
-      {required this.stateRendererType,
+      { required this.stateRendererType,
       this.message = AppStrings.loading,
       this.title = "",
       required this.retryActionfunction});
@@ -55,6 +57,8 @@ class StateRenderer extends StatelessWidget {
       return _getItemsColumn([_getAnimatedImage(JsonAssets.empty),_getMessage(message)]);
       case StateRendererType.contentState:
       return Container();
+      case StateRendererType.popupSuccess:
+      return _getPopUpDialog(context, [_getAnimatedImage(JsonAssets.success),_getMessage(title),_getRetryButton(AppStrings.ok, context)]);
       default:
       return Container();
     }
