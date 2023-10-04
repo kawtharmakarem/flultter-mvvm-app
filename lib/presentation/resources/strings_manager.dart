@@ -24,12 +24,5 @@ class AppStrings {
   static const String emailHint="Enter your email";
   static const String invalidEmail="Please enter your email";
   static const String resetPassword="Reset Password";
-
-
-
-
-
-
-
- 
+ static const String success="Success"; 
 }

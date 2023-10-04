@@ -120,6 +120,12 @@ extension FlowStateExtension on FlowState{
           message: getMessage(),
            retryActionfunction: (){});
       }
+      case SuccessState:
+      {
+        dismissDialog(context);
+        showPopup(context, StateRendererType.popupSuccess,getMessage(),title: AppStrings.success);
+        return contentScreenWidget;
+      }
       
       default:
       {
