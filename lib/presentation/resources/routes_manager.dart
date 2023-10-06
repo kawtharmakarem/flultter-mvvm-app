@@ -4,7 +4,7 @@ import 'package:flutter_application_test/presentation/forgot_password/forgot_pas
 import 'package:flutter_application_test/presentation/login/view/login_view.dart';
 import 'package:flutter_application_test/presentation/main/main_view.dart';
 import 'package:flutter_application_test/presentation/onboarding/view/onboarding_view.dart';
-import 'package:flutter_application_test/presentation/register/register_view.dart';
+import 'package:flutter_application_test/presentation/register/view/register_view.dart';
 import 'package:flutter_application_test/presentation/resources/strings_manager.dart';
 import 'package:flutter_application_test/presentation/splash/splash_view.dart';
 import 'package:flutter_application_test/presentation/store_details/store_details_view.dart';
@@ -29,6 +29,7 @@ class RouteGenerator{
       initLoginModule();
       return MaterialPageRoute(builder: (_)=>const LoginView());
       case Routes.registerRoute:
+      initRegisterModule();
       return MaterialPageRoute(builder: (_)=>const RegisterView());
       case Routes.forgotPasswordRoute:
       initForgotPasswordModule();

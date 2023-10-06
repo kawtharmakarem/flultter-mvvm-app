@@ -22,7 +22,14 @@ class AppStrings {
   static const String ok='Ok';
   static const String retryAgain="Retry Again";
   static const String emailHint="Enter your email";
-  static const String invalidEmail="Please enter your email";
+  static const String invalidEmail="Email format is wrong";
   static const String resetPassword="Reset Password";
- static const String success="Success"; 
+ static const String success="Success";
+  static const String userNameInvalid="User name should be at least 6 characters";
+
+  static const String mobileNumberInvalid="Mobile number should be at least 10 numbers";
+
+  static const String passwordInvalid="Password should be at least 6 characters";
+
+  
 }
