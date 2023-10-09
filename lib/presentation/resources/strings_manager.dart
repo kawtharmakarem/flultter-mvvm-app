@@ -30,6 +30,12 @@ class AppStrings {
   static const String mobileNumberInvalid="Mobile number should be at least 10 numbers";
 
   static const String passwordInvalid="Password should be at least 6 characters";
+  static const String alreadyHaveAccount="Already have an account ? Login";
+  static const String register="Register";
+  static const String mobileNumber="Mobile Number";
+  static const String profilePicture="Profile Picture";
+  static const String photGallery="photo from gallery";
+  static const String photoCamera="Photo from camera";
 
   
 }
