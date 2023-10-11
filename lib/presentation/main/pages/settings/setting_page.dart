@@ -25,7 +25,7 @@ class _SettingsPageState extends State<SettingsPage> {
         trailing: SvgPicture.asset(ImageAssets.rightArrowIc),
           onTap: (){
             _appPreferences.logout();
-    Navigator.of(context).popAndPushNamed(Routes.registerRoute);
+    Navigator.pushReplacementNamed(context, Routes.loginRoute);
 
 
           },
