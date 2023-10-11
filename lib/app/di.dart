@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_application_test/app/app_prefs.dart';
 import 'package:flutter_application_test/data/data_source/remote_data_source.dart';
 import 'package:flutter_application_test/data/network/app_api.dart';

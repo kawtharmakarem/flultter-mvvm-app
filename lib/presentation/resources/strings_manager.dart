@@ -34,8 +34,13 @@ class AppStrings {
   static const String register="Register";
   static const String mobileNumber="Mobile Number";
   static const String profilePicture="Profile Picture";
-  static const String photGallery="photo from gallery";
+  static const String photoGallery="photo from gallery";
   static const String photoCamera="Photo from camera";
+  static const String home="HomePage";
+  static const String search="SearchPage";
+  static const String notifications="NotificationsPage";
+  static const String settings="SettingsPage";
+  static const String logout="LogOut";
 
   
 }
