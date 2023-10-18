@@ -54,6 +54,7 @@ ThemeData getApplicationTheme(){
       titleMedium: getMediumStyle(color: ColorManager.primary,fontSize: FontSize.s16),//for skip button
       bodyLarge: getRegularStyle(color: ColorManager.grey1),
       bodySmall: getRegularStyle(color: ColorManager.grey),
+      titleSmall: getRegularStyle(color: ColorManager.white,fontSize: FontSize.s16),
       headlineMedium: getRegularStyle(color: ColorManager.darkGrey,fontSize: FontSize.s14),//for onboarding subtitle
      
     ),

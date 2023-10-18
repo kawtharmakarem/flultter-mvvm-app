@@ -36,10 +36,11 @@ class AppStrings {
   static const String profilePicture="Profile Picture";
   static const String photoGallery="photo from gallery";
   static const String photoCamera="Photo from camera";
-  static const String home="HomePage";
-  static const String search="SearchPage";
-  static const String notifications="NotificationsPage";
-  static const String settings="SettingsPage";
+  static const String home="Home";
+  static const String search="Search";
+
+  static const String notifications="Notifications";
+  static const String settings="Settings";
   static const String logout="LogOut";
 
   
